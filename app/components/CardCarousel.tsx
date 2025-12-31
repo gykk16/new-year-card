@@ -162,9 +162,13 @@ export default function CardCarousel() {
             </div>
           );
         })}
-        {/* Hint */}
+        {/* Hint - top */}
+        <p className="absolute top-0 text-xs text-white/50" style={{fontFamily: 'var(--font-noto)'}}>
+          <span className="inline-block animate-bounce">👇</span> 꾹 누르기
+        </p>
+        {/* Hint - bottom */}
         <p className="absolute bottom-0 text-xs text-white/50" style={{fontFamily: 'var(--font-noto)'}}>
-          👆 꾹 누르기 | ← → 스와이프
+          ← → 스와이프
         </p>
       </div>
 
