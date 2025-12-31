@@ -19,7 +19,7 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 /** Site URL for metadata */
-const SITE_URL = 'https://new-year-2026.vercel.app';
+const SITE_URL = 'https://new-year-card-hazel.vercel.app';
 
 /** Page metadata */
 export const metadata: Metadata = {
