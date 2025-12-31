@@ -22,7 +22,7 @@ export default function ScrollingBanner() {
   const repeatedMessages = [...MESSAGES, ...MESSAGES];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 flex h-8 items-center overflow-hidden rounded-full bg-red-600 sm:h-9">
+    <div className="flex h-8 items-center overflow-hidden rounded-full bg-red-600 sm:h-9">
       {/* Label badge */}
       <div
         className="flex h-full shrink-0 items-center rounded-l-full bg-yellow-400 px-4 text-xs font-bold text-red-600 sm:text-sm"

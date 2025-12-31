@@ -74,7 +74,7 @@ export default function ConfettiBackground({children}: ConfettiBackgroundProps) 
 
   return (
     <div
-      className="relative min-h-dvh bg-gradient-to-b from-zinc-900 to-black"
+      className="relative h-dvh w-full overflow-hidden bg-gradient-to-b from-zinc-900 to-black"
       onClick={fireConfetti}
     >
       {children}

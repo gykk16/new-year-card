@@ -2,81 +2,7 @@
 
 import {useRef, useState, useEffect} from 'react';
 import Image from 'next/image';
-
-/** Fortune messages displayed on card back */
-const FORTUNE_MESSAGES: readonly string[] = [
-  // 야근/퇴근 관련
-  '야근 없는 평화로운 2026년 🌙✨',
-  '칼퇴 후 헬스장까지 가는 갓생 달성 💪',
-  '퇴근 후 카톡 안 오는 꿈같은 현실 📱🚫',
-  '6시 땡 치면 사라지는 닌자 퇴근 🥷',
-  '야근하면 택시비 무제한 지원 🚕💳',
-  '"오늘 일찍 가세요" 팀장님의 한마디 🗣️✨',
-  '퇴근길 지하철 자리 100% 확보 🚇💺',
-  '금요일 3시 퇴근이 현실이 됩니다 🎉',
-
-  // 연봉/돈 관련
-  '연봉 협상, 원하는 대로 척척 💰🎯',
-  '성과급 두 배, 업무량 절반 🎁📊',
-  '월급날이 한 달에 두 번 오는 기적 💵💵',
-  '통장 잔고 보고 놀라는 날이 옵니다 🏦😲',
-  '점심값 걱정 없는 부자 직장인 등극 🍚👑',
-  '주식 계좌가 초록초록해지는 한 해 📈🌿',
-  '로또 3등 당첨 예정 (세금 떼도 행복) 🎰',
-  '연말정산 환급금 역대급 예상 💸🎊',
-
-  // 상사/동료 관련
-  '상사가 갑자기 착해지는 기적 발생 👼',
-  '팀장님이 커피 사주는 빈도 UP ☕️📈',
-  '"그거 내가 할게요" 동료의 한마디 🤝',
-  '회의 중 내 아이디어만 채택됨 💡👍',
-  '팀장님 휴가와 내 컨디션이 싱크로 🏖️😎',
-  '잔소리 대신 칭찬이 들리는 한 해 👏',
-  '사수가 모든 걸 알려주는 천사로 변신 😇',
-  '후배가 커피 사오는 빈도 UP ☕️🙏',
-
-  // 회의/업무 관련
-  '회의 시간 절반으로 줄어드는 축복 📉🙏',
-  '"이 회의 메일로 대체합니다" 🙌📧',
-  '보고서 한 번에 통과되는 기적 📝✅',
-  '버그 없는 배포, 장애 없는 운영 🚀✅',
-  'QA 통과율 100% 달성 🎯🏆',
-  '기획 변경 0건으로 프로젝트 완료 📋✨',
-  '"이거 급한 거 아니에요" 라는 말 듣기 🐢',
-  '월요일 회의 전부 취소됨 📅❌',
-
-  // 재택/휴가 관련
-  '재택근무 영구 승인 예정 🏠💻',
-  '연차 눈치 안 보고 쓰는 한 해 🏖️',
-  '슬랙 알림 없는 주말이 찾아옵니다 📵😌',
-  '월요일이 공휴일인 달이 많아짐 📅🎉',
-  '병가 안 써도 될 만큼 건강해짐 💊❌',
-  '재택하는데 택배도 제시간에 옴 📦🎁',
-  '휴가 중 업무 연락 0건 달성 🏝️📵',
-
-  // 점심/일상 관련
-  '점심시간 1시간이 2시간처럼 느껴짐 🍱⏰',
-  '구내식당 메뉴가 매일 맛집 수준 🍽️⭐',
-  '점심 메뉴 고민 제로, 매일 맛집 발견 🍜🔍',
-  '엘리베이터 버튼 누르자마자 도착 🛗✨',
-  '프린터 고장 없는 평화로운 한 해 🖨️☮️',
-  '커피머신 항상 내 차례에 청소 완료 ☕️✨',
-
-  // 월요일/금요일 관련
-  '월요병이 사라지는 신비로운 한 해 🧘‍♂️',
-  '일요일 밤이 두렵지 않아짐 🌙😌',
-  '금요일이 일주일에 두 번 오는 느낌 🎊🎊',
-  '월요일도 금요일 기분으로 출근 🌈',
-
-  // 기타 위트있는 것들
-  '이직 면접 합격률 100% 🎯💼',
-  '링크드인 헤드헌터 연락 폭주 📞🔥',
-  '연말 인사평가 S등급 확정 📊👑',
-  '책상 위 서류 자동 정리되는 기적 📚✨',
-  '줌 회의 중 방해 요소 제로 🖥️🤫',
-  '노트북 배터리 100%로 하루 버팀 🔋💪',
-  '메일함 읽지 않은 메일 0개 달성 📬✅',
-] as const;
+import {getRandomFortune, type FortuneCategory} from '../data/fortunes';
 
 /** Animation timing constants */
 const HOLD_DURATION_MS = 1000;
@@ -84,6 +10,13 @@ const FLIP_DURATION_MS = 400;
 const PROGRESS_INTERVAL_MS = 50;
 const TILT_INTENSITY = 15;
 const SCALE_ON_HOVER = 1.05;
+
+/** Category to card image mapping */
+const CARD_IMAGES: Record<string, string> = {
+  worker: '/card-worker.webp',
+  housewife: '/card-housewife.webp',
+  student: '/card-student.webp',
+};
 
 /** Position state interface */
 interface Position {
@@ -124,18 +57,16 @@ function getCardTransform(rotateX: number, rotateY: number, scale: number): stri
   return `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${scale}, ${scale}, ${scale})`;
 }
 
-/**
- * Selects a random fortune message
- */
-function getRandomFortune(): string {
-  const index = Math.floor(Math.random() * FORTUNE_MESSAGES.length);
-  return FORTUNE_MESSAGES[index];
+/** Props for TiltCard component */
+interface TiltCardProps {
+  category?: FortuneCategory;
+  disabled?: boolean;
 }
 
 /**
  * Interactive tilt card component with holographic effects and fortune reveal
  */
-export default function TiltCard() {
+export default function TiltCard({category = 'worker', disabled = false}: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const holdTimerRef = useRef<number | null>(null);
   const progressIntervalRef = useRef<number | null>(null);
@@ -163,7 +94,7 @@ export default function TiltCard() {
   };
 
   const handleMove = (clientX: number, clientY: number): void => {
-    if (!cardRef.current || isFlipped || isTransitioning) return;
+    if (!cardRef.current || isFlipped || isTransitioning || disabled) return;
 
     const card = cardRef.current;
     const rect = card.getBoundingClientRect();
@@ -206,7 +137,7 @@ export default function TiltCard() {
   };
 
   const flipToBack = (): void => {
-    setFortune(getRandomFortune());
+    setFortune(getRandomFortune(category));
     setIsFlipped(true);
     setIsTransitioning(true);
     setRotateY(180);
@@ -225,6 +156,8 @@ export default function TiltCard() {
   };
 
   const handlePointerDown = (e: React.PointerEvent): void => {
+    if (disabled) return;
+
     e.preventDefault();
     e.stopPropagation();
 
@@ -335,7 +268,7 @@ export default function TiltCard() {
         onPointerLeave={handlePointerLeave}
         onPointerCancel={handlePointerUp}
         onContextMenu={(e) => e.preventDefault()}
-        className="group relative w-[280px] cursor-pointer select-none sm:w-[320px] md:w-[360px] lg:w-[400px]"
+        className="group relative w-[240px] cursor-pointer select-none sm:w-[280px]"
         style={{
           transform: cardTransform,
           transition: transitionStyle,
@@ -354,13 +287,13 @@ export default function TiltCard() {
           }}
         >
           <Image
-            src="/new-year.webp"
-            alt="New Year Card"
+            src={CARD_IMAGES[category] || '/card-worker.webp'}
+            alt={`${category} card`}
             width={400}
             height={560}
             priority
             className="pointer-events-none h-auto w-full object-cover"
-            sizes="(max-width: 640px) 280px, (max-width: 768px) 320px, (max-width: 1024px) 360px, 400px"
+            sizes="(max-width: 640px) 240px, 280px"
             draggable={false}
           />
 
