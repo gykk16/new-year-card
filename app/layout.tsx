@@ -23,20 +23,20 @@ const SITE_URL = 'https://new-year-2026.vercel.app';
 
 /** Page metadata */
 export const metadata: Metadata = {
-  title: '2026 새해 복 많이 받으세요 🎉',
+  title: '새해복!! 🎉',
   description: '새해복 많이 받으세요! by 글로리',
   keywords: ['새해', '2026', '카운트다운', '행운', 'New Year'],
   authors: [{name: 'gykk16'}],
   openGraph: {
-    title: '2026 새해 복 많이 받으세요 🎉',
+    title: '새해복!! 🎉',
     description: '새해복 많이 받으세요! by 글로리',
     url: SITE_URL,
     siteName: 'New Year 2026',
     images: [
       {
-        url: `${SITE_URL}/new-year.webp`,
-        width: 400,
-        height: 560,
+        url: `${SITE_URL}/og-image.jpg`,
+        width: 1200,
+        height: 630,
         alt: '2026 새해 카드',
       },
     ],
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: '2026 새해 복 많이 받으세요 🎉',
+    title: '새해복!! 🎉',
     description: '새해복 많이 받으세요! by 글로리',
-    images: [`${SITE_URL}/new-year.webp`],
+    images: [`${SITE_URL}/og-image.jpg`],
   },
 };
 
