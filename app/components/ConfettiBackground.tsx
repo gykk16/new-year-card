@@ -1,6 +1,6 @@
 'use client';
 
-import {useCallback, type ReactNode} from 'react';
+import {useCallback, useEffect, type ReactNode} from 'react';
 
 /** Confetti color palette */
 const CONFETTI_COLORS = [
@@ -18,13 +18,19 @@ const CONFETTI_PARTICLE_COUNT = 50;
 /** Default confetti spread angle */
 const CONFETTI_SPREAD = 60;
 
+/** Auto confetti interval in milliseconds */
+const AUTO_CONFETTI_INTERVAL_MS = 3000;
+
+/** Auto confetti particle count */
+const AUTO_CONFETTI_PARTICLE_COUNT = 15;
+
 /** Props for ConfettiBackground component */
 interface ConfettiBackgroundProps {
   children: ReactNode;
 }
 
 /**
- * Background wrapper that fires confetti on click/touch
+ * Background wrapper that fires confetti on click/touch and automatically
  */
 export default function ConfettiBackground({children}: ConfettiBackgroundProps) {
   const fireConfetti = useCallback(async (e: React.MouseEvent | React.TouchEvent) => {
@@ -43,6 +49,27 @@ export default function ConfettiBackground({children}: ConfettiBackgroundProps) 
       },
       colors: CONFETTI_COLORS,
     });
+  }, []);
+
+  // Auto fire confetti periodically
+  useEffect(() => {
+    const fireAutoConfetti = async () => {
+      const {default: confetti} = await import('canvas-confetti');
+      confetti({
+        particleCount: AUTO_CONFETTI_PARTICLE_COUNT,
+        spread: 80,
+        origin: {
+          x: Math.random(),
+          y: Math.random() * 0.6,
+        },
+        colors: CONFETTI_COLORS,
+        gravity: 0.8,
+        scalar: 0.9,
+      });
+    };
+
+    const interval = setInterval(fireAutoConfetti, AUTO_CONFETTI_INTERVAL_MS);
+    return () => clearInterval(interval);
   }, []);
 
   return (
