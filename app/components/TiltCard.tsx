@@ -132,6 +132,7 @@ export default function TiltCard() {
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>): void => {
+    e.preventDefault();
     if (e.touches[0]) {
       handleMove(e.touches[0].clientX, e.touches[0].clientY);
     }
@@ -285,6 +286,7 @@ export default function TiltCard() {
           transformStyle: 'preserve-3d',
           WebkitTouchCallout: 'none',
           WebkitUserSelect: 'none',
+          touchAction: 'none',
         }}
       >
         {/* Front of card */}
