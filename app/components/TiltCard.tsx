@@ -226,7 +226,6 @@ export default function TiltCard() {
       {/* Hold progress ring */}
       {isHolding && (
         <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-2xl bg-black/40" />
           <svg className="relative h-32 w-32 drop-shadow-lg" viewBox="0 0 100 100">
             <circle
               cx="50"
