@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import type {ReactNode} from 'react';
 import {Space_Grotesk, Noto_Sans_KR} from 'next/font/google';
+import {Analytics} from '@vercel/analytics/react';
 import './globals.css';
 
 /** Space Grotesk font for numbers and English text */
@@ -66,6 +67,7 @@ export default function RootLayout({children}: Readonly<RootLayoutProps>) {
         style={{fontFamily: 'var(--font-noto), var(--font-space), sans-serif'}}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
