@@ -141,7 +141,7 @@ export default function CardCarousel() {
       {/* Card area */}
       <div
         ref={containerRef}
-        className="relative flex h-[400px] w-[280px] cursor-grab items-center justify-center sm:h-[480px] sm:w-[320px]"
+        className="relative flex h-[400px] w-[280px] cursor-grab flex-col items-center justify-center sm:h-[480px] sm:w-[320px]"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -162,12 +162,11 @@ export default function CardCarousel() {
             </div>
           );
         })}
+        {/* Hint */}
+        <p className="absolute bottom-0 text-xs text-white/50" style={{fontFamily: 'var(--font-noto)'}}>
+          👆 꾹 누르기 | ← → 스와이프
+        </p>
       </div>
-
-      {/* Hint */}
-      <p className="text-xs text-white/50" style={{fontFamily: 'var(--font-noto)'}}>
-        👆 꾹 누르기 | ← → 스와이프
-      </p>
 
       {/* Category buttons */}
       <div className="flex items-center gap-2">

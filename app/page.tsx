@@ -6,20 +6,32 @@ import ScrollingBanner from './components/ScrollingBanner';
 export default function Home() {
   return (
     <ConfettiBackground>
-      {/* Header - fixed height */}
-      <header className="absolute left-0 right-0 top-0 z-20 flex justify-center p-4">
-        <Countdown />
-      </header>
+      <div className="flex h-dvh flex-col">
+        {/* 1. Countdown */}
+        <section className="shrink-0 pt-4 text-center">
+          <Countdown />
+        </section>
 
-      {/* Main card area - centered */}
-      <main className="flex h-dvh w-full items-center justify-center">
-        <CardCarousel />
-      </main>
+        {/* 2. Greeting */}
+        <section className="shrink-0 py-2 text-center">
+          <p
+            className="text-base font-medium text-white sm:text-lg"
+            style={{fontFamily: 'var(--font-noto)'}}
+          >
+            🎆 새해 복 많이 받으세요! 🎇
+          </p>
+        </section>
 
-      {/* Footer banner - fixed at bottom */}
-      <footer className="absolute bottom-0 left-0 right-0 z-20 p-4">
-        <ScrollingBanner />
-      </footer>
+        {/* 3 & 4. Card + Controls */}
+        <section className="flex min-h-0 flex-1 items-center justify-center">
+          <CardCarousel />
+        </section>
+
+        {/* 5. Footer */}
+        <section className="shrink-0 p-4">
+          <ScrollingBanner />
+        </section>
+      </div>
     </ConfettiBackground>
   );
 }
